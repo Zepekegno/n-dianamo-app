@@ -1,0 +1,17 @@
+export const WHITE_COLOR = "#FFF"
+export const BLACK_COLOR = "#000000"
+export const AQUA_COLOR = "#00ffff"
+export const ANTIQUEWHITE_COLOR = "#faebd7"
+export const ALICEBLUE_COLOR = "#f0f8ff"
+export const AQUAMARINE_COLOR = "#7fffd4"
+export const BLUE_COLOR = "#0000ff"
+export const BROWN_COLOR = "#a52a2a"
+export const DIMGRAY_COLOR = "#696969"
+export const FIREBRIK_COLOR = "#1e90ff"
+export const LIGHTSEAGREEN_COLOR = "#20b2aa"
+export const ORANGE_COLOR = "#ff4500"
+export const RED_COLOR = "#ff0000"
+export const ROYALBLUE_COLOR = "#4169e1"
+export const CRIMSON_COLOR = '#dc143c'
+export const FORESTGREEN = '#228b22'
+export const SEAGREEN_COLOR = '#2e8b57'
