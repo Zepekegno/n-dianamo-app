@@ -11,53 +11,64 @@ import {
 
 import {
     AQUA_COLOR,
+    CRIMSON_COLOR,
     DIMGRAY_COLOR,
     RED_COLOR,
     SEAGREEN_COLOR,
     WHITE_COLOR
 } from 'colors/ConstantColors'
 
-import Icons from 'react-native-vector-icons/Ionicons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { SCREEN_HEIGHT } from 'App'
 
-export default ({ item, opacity }) => {
+export default ({ item }) => {
     return (
         <>
             <Animated.View style={{
-                position: 'absolute',
-                top: 80,
                 elevation: 10,
                 paddingHorizontal: 5,
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginHorizontal: 20,
-                opacity:opacity
+                alignItems: 'flex-start',
+                marginHorizontal: 10,
+                position: 'absolute',
+                top: SCREEN_HEIGHT / 2 - 280,
 
             }}>
                 <TouchableOpacity style={styles.iconLikedBtn}>
-                    <Ionicons name="heart" size={25} color={SEAGREEN_COLOR} />
+                    <Ionicons name="heart" size={25} color='tomato' />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.iconLikedBtn}>
-                    <Ionicons name="star" size={25} color={AQUA_COLOR} />
+                    <Ionicons name="star" size={25} color={SEAGREEN_COLOR} />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.iconLikedBtn}>
-                    <Ionicons name="close" size={25} color={RED_COLOR} />
+                    <Ionicons name="close" size={25} color={CRIMSON_COLOR} />
                 </TouchableOpacity>
             </Animated.View>
             <View style={styles.card}>
                 <Image source={item.image} style={styles.image} />
                 <View style={styles.cardContent}>
                     <View style={styles.cardInfoBtn}>
-                        <Icons name="location-outline" size={18} color={WHITE_COLOR} />
-                        <Text style={{
-                            color: WHITE_COLOR,
-                            marginHorizontal: 5
-                        }}>{item.ville}</Text>
+                        <View style={{ flexDirection: 'row', marginHorizontal: 10, alignItems: 'center' }}>
+                            <Ionicons name="location-outline" size={18} color={WHITE_COLOR} />
+                            <Text style={{
+                                color: WHITE_COLOR,
+                                marginHorizontal: 5,
+                                fontSize: 16
+                            }}>{item.ville}</Text>
+                        </View>
+                        <Text style={{ fontSize: 16, color: '#FFF' }}>|</Text>
+                        <View style={{ flexDirection: 'row', marginHorizontal: 10, alignItems: 'center' }}>
+                            <Ionicons name="school" size={18} color={WHITE_COLOR} />
+                            <Text style={{
+                                color: WHITE_COLOR,
+                                marginHorizontal: 5,
+                                fontSize: 16
+                            }}>{item.school}</Text>
+                        </View>
                     </View>
                     <View style={styles.cardInfo}>
-                        <Text style={styles.cardInfoTitle}>{item.firstName} {item.lastName}, {item.age} ans</Text>
+                        <Text style={styles.cardInfoTitle}>{item.firstName} {item.lastName}, {item.age}</Text>
                         <Text style={styles.cardInfoSubTitle}>
-                            Je suis un ingénieur capable de s’adapter et apprendre très rapidement, ma capacité en travail d’équipe et d’écoute sont excellentes
+                            Je suis un ingénieur capable de s’adapter et apprendre très rapidement
                         </Text>
                     </View>
                 </View>
@@ -71,28 +82,28 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     image: {
-        flex: 4,
-        width: null,
-        height: null,
-        borderRadius: 10,
-        resizeMode: 'cover'
+        flex: 3,
+        width: '100%',
+        height: '100%',
+        borderRadius: 10
     },
     cardContent: {
-        flex: 1,
+
     },
     cardInfo: {
-        flex: 4,
-        alignItems: 'flex-end',
-        justifyContent: 'center',
-        paddingTop: 15
+        top: 10,
+        paddingVertical: 15,
+        paddingHorizontal: 5
     },
     cardInfoTitle: {
-        fontSize: 25,
-        alignSelf: 'center'
+        fontSize: 22,
+        fontWeight: '700'
     },
     cardInfoSubTitle: {
         color: DIMGRAY_COLOR,
-        fontSize: 16
+        fontSize: 16,
+        marginTop: 5,
+        lineHeight: 22
     },
     cardInfoBtn: {
         position: 'absolute',
@@ -100,11 +111,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-around',
-        backgroundColor: DIMGRAY_COLOR,
-        top: -16,
+        backgroundColor: 'tomato',
+        top: -10,
         borderRadius: 10,
-        paddingHorizontal: 20,
-        paddingVertical: 5,
+        paddingHorizontal: 10,
+        paddingVertical: 0,
     },
     iconLikedBtn: {
         backgroundColor: '#FFF',
@@ -113,9 +124,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 100,
-        marginBottom: 50,
         shadowColor: '#fff',
         shadowOffset: { width: 0, height: 5 },
         shadowOpacity: 0.55,
+        marginHorizontal: 10,
+        marginTop: 40
     }
 })

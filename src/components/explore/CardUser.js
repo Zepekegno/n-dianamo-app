@@ -74,7 +74,7 @@ export default class CardUser extends Component {
             current: 0,
             position,
             pan,
-            likedPosioned:0
+            likedPosioned: 0
         }
     }
 
@@ -122,14 +122,9 @@ export default class CardUser extends Component {
         const transform = this.transformAndRotate()
         if (!animated) return [
             container,
-            {
-                opacity: this.opacityNext,
-                transform: [{ scale: this.scaleNext }]
-            }
         ]
         return [
             container,
-            transform
         ]
 
     }
@@ -151,17 +146,50 @@ export default class CardUser extends Component {
             if (index == current) {
                 return (
                     <Animated.View
-                        style={animatedStyle}
+                        style={
+                            [
+                                {
+                                    width: SCREEN_WIDTH - 20,
+                                    backgroundColor: "#FFF",
+                                    shadowColor: "#000",
+                                    shadowOffset: { width: 0, height: 2 },
+                                    padding: 10,
+                                    position: 'absolute',
+                                    top: 0,
+                                    bottom: 0,
+                                    alignSelf: 'center',
+                                    marginVertical: 5,
+                                    borderRadius: 10,
+                                },
+                                this.transformAndRotate()
+                            ]
+                        }
                         key={index}
                         {...this.state.pan.panHandlers}>
-                        {this.props.renderCard(item, index, this.likedBtnOpacityPrimary)}
+                        {this.props.renderCard(item, index)}
                     </Animated.View>
                 )
             }
             return (
-                <Animated.View style={notAnimatedStyle}
+                <Animated.View style={
+                    [
+                        {
+                            width: SCREEN_WIDTH - 20,
+                            backgroundColor: "#FFF",
+                            shadowColor: "#000",
+                            shadowOffset: { width: 0, height: 2 },
+                            padding: 10,
+                            position: 'absolute',
+                            top: 0,
+                            bottom: 0,
+                            alignSelf: 'center',
+                            marginVertical: 5,
+                            borderRadius: 10
+                        }
+                    ]
+                }
                     key={index}>
-                    {this.props.renderCard(item, index, this.likedBtnOpacitySecondary)}
+                    {this.props.renderCard(item, index)}
                 </Animated.View>
             )
         }).reverse()

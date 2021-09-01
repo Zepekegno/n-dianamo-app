@@ -1,23 +1,17 @@
 import React, { Component } from "react";
 import {
     Text,
+    TouchableOpacity,
     View
 } from "react-native";
 
 import Icons from 'react-native-vector-icons/SimpleLineIcons'
-import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
-//Data user
-import { ListUser } from "utils/Listuser";
+import { createStackNavigator } from "@react-navigation/stack";
+import MainExplore from "./explore/MainExplore";
 
-//Component
-import CardUser from "./explore/CardUser";
-import Explore from "./explore/Explore";
-import HeaderContent from "./explore/HeaderContent";
-
-import Header from "./HeaderComponent";
-import FilterScreen from "./FilterScreen";
-
+const stackNavigator = createStackNavigator()
 
 export default class ExploreScreen extends Component {
 
@@ -25,7 +19,7 @@ export default class ExploreScreen extends Component {
     static BottomTabNavigationOptions = (props) => {
         return {
             title: 'Explore',
-            tabBarIcon: ({color }) => {
+            tabBarIcon: ({ color }) => {
                 return <Icons name='fire' size={25} color={color} />
             },
         }
@@ -35,35 +29,7 @@ export default class ExploreScreen extends Component {
         bottomSheetVisible: false,
     }
 
-    // component for empty card
-    emptyCard = () => {
-        return (
-            <View style={{
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: "#FFF",
-                shadowOpacity: 0.5,
-                shadowOffset: { width: 0, height: 5 },
-                shadowColor: '#000',
-                elevation: 20,
-                padding: 40,
-                flexDirection: 'row'
-            }}>
-                <Text style={{
-                    fontSize: 20
-                }}>Oops il n'y a plus de matches</Text>
-                <MaterialIcons name="emoticon-sad" size={25} color='tomato' />
-            </View>
-        )
-    }
 
-    //Render component for each item
-    renderCard = (item, index, opacity) => {
-        return (
-            <Explore key={index} item={item} opacity={opacity} />
-        )
-    }
 
     openBottomSheet = () => {
         this.setState({ bottomSheetVisible: true })
@@ -75,19 +41,30 @@ export default class ExploreScreen extends Component {
 
     render() {
         return (
-            <>
-                <Header component={<HeaderContent onPress={this.openBottomSheet} />} />
-                <View style={{ flex: 1 }}>
-                    <CardUser
-                        data={ListUser}
-                        renderCard={this.renderCard}
-                        emptyCard={this.emptyCard}
-                    />
-                </View>
-                <FilterScreen
-                    visible={this.state.bottomSheetVisible}
-                    hide={this.closeBottomSheet} />
-            </>
+            <stackNavigator.Navigator>
+                <stackNavigator.Screen name='Explore' component={MainExplore} options={{
+                    headerRight: () => {
+                        return (
+                            <TouchableOpacity style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                paddingHorizontal: 10,
+                                paddingVertical: 5,
+                                marginHorizontal: 5,
+                                backgroundColor: '#F8F8F8',
+                                borderRadius: 10
+                            }} onPress={this.openBottomSheet}>
+                                <Ionicons name="filter" size={25} />
+                                <Text style={{
+                                    fontSize: 18,
+                                    color: '#222',
+                                    marginHorizontal: 5
+                                }}>Filter</Text>
+                            </TouchableOpacity>
+                        )
+                    }
+                }} />
+            </stackNavigator.Navigator>
         )
     }
 }
