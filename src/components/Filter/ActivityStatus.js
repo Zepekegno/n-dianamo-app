@@ -1,3 +1,4 @@
+import { CRIMSON_COLOR } from "colors/ConstantColors";
 import React, { useContext, useState } from "react";
 import { View } from "react-native";
 import { CheckBox } from "react-native-elements";
@@ -7,20 +8,10 @@ export default ActivityStatus = () => {
 
     const [profile, setProfile] = useState(false)
     const [activity, setActivity] = useState(false)
-    const { setValues } = useContext(FilterContext)
-
-    const onProfileChecked = () => {
-        setProfile(!profile)
-        setValues({ profile: !profile })
-    }
-
-    const onActivityChecked = () => {
-        setActivity(!activity)
-        setValues({ 'activity': !activity })
-    }
 
     return (
         <View style={{
+            flexWrap: 'wrap',
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-around',
@@ -28,13 +19,15 @@ export default ActivityStatus = () => {
             <CheckBox
                 title="avec un profile"
                 checked={profile}
-                onPress={onProfileChecked}
+                onPress={() => setProfile(!profile)}
+                checkedColor={CRIMSON_COLOR}
             />
             <CheckBox
                 title="Activité recente"
                 style={{ left: 10 }}
                 checked={activity}
-                onPress={onActivityChecked}
+                onPress={() => setActivity(!activity)}
+                checkedColor={CRIMSON_COLOR}
             />
         </View>
     )
