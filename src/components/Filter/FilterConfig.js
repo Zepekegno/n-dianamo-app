@@ -1,6 +1,5 @@
 import React from 'react'
 import ActivityStatus from "./ActivityStatus"
-import BorderBar from "./BorderBar"
 import Distances from "./Distances"
 import YearInterval from "./YearInterval"
 

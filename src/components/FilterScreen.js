@@ -1,12 +1,10 @@
-import React, { Component, useRef } from 'react'
+import React, { Component } from 'react'
 
 import PropTypes from 'prop-types'
 import { Animated, PanResponder, ScrollView, StyleSheet, View } from 'react-native'
 import { BottomSheet } from 'react-native-elements'
 
-import Filter from './Filter/Filter'
 import FilterConfig from './Filter/FilterConfig'
-import { FilterContext } from './Filter/FilterContext'
 import { Text } from 'react-native'
 import BorderBar from './Filter/BorderBar'
 import { SCREEN_HEIGHT } from 'App'
@@ -21,19 +19,13 @@ export default class FilterScreen extends Component {
 
     constructor(props) {
         super(props)
-
-        this.onSetState = this.onSetState.bind(this)
-
-        const anim = new Animated.ValueXY(0)
-        closedFilter = false
+        const anim = new Animated.ValueXY({ x: 0, y: 0 })
         const pan = PanResponder.create({
             onStartShouldSetPanResponder: () => true,
             onPanResponderMove: (e, gesture) => {
                 if (gesture.dy > 0) anim.setValue({ x: 0, y: gesture.dy })
                 if (gesture.dy > 80) {
                     this.onSwipBottom()
-                    this.props.hideFilter()
-                    anim.setValue({ x: 0, y: 0 })
                 }
             },
 
@@ -48,11 +40,6 @@ export default class FilterScreen extends Component {
         this.state = {
             pan,
             anim,
-            closedFilter,
-        }
-        this.config = {
-            values: this.state,
-            setValues: this.onSetState
         }
     }
 
@@ -62,12 +49,9 @@ export default class FilterScreen extends Component {
             toValue: { x: 0, y: SCREEN_HEIGHT * 0.25 },
             useNativeDriver: true
         }).start()
+        this.props.hideFilter()
+        position.setValue({ x: 0, y: 0 })
     }
-
-    onSetState = (values) => {
-        this.setState(values)
-    }
-
 
     render = () => {
         return (
