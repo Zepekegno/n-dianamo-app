@@ -5,9 +5,9 @@ import CardUser from './CardUser'
 import Explore from './Explore'
 
 class MainExplore extends Component {
-    renderCard = (item, index, opacity) => {
+    renderCard = (item, index, animatedValue) => {
         return (
-            <Explore key={index} item={item} opacity={opacity} />
+            <Explore key={index} item={item} animated={animatedValue} />
         )
     }
     emptyCard = () => {

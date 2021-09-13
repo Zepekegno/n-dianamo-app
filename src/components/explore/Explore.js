@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import {
     Image,
     Text,
@@ -6,43 +6,29 @@ import {
     Animated,
     TouchableOpacity,
     StyleSheet,
-    PanResponder
+    TouchableWithoutFeedback,
 } from 'react-native'
 
 import {
-    AQUA_COLOR,
     CRIMSON_COLOR,
     DIMGRAY_COLOR,
-    RED_COLOR,
     SEAGREEN_COLOR,
     WHITE_COLOR
 } from 'colors/ConstantColors'
 
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { SCREEN_HEIGHT } from 'App'
+import { SCREEN_WIDTH } from 'App'
+import { IsEmpty } from 'utils/IsEmpty'
 
-export default ({ item }) => {
+export default ({ item, animated }) => {
+    const scale = IsEmpty(animated) ? 1 : animated.x.interpolate({
+        inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
+        outputRange: [0, 1, 0],
+        extrapolate: 'clamp'
+    })
+
     return (
         <>
-            <Animated.View style={{
-                elevation: 10,
-                paddingHorizontal: 5,
-                alignItems: 'flex-start',
-                marginHorizontal: 10,
-                position: 'absolute',
-                top: SCREEN_HEIGHT / 2 - 280,
-
-            }}>
-                <TouchableOpacity style={styles.iconLikedBtn}>
-                    <Ionicons name="heart" size={25} color='tomato' />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.iconLikedBtn}>
-                    <Ionicons name="star" size={25} color={SEAGREEN_COLOR} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.iconLikedBtn}>
-                    <Ionicons name="close" size={25} color={CRIMSON_COLOR} />
-                </TouchableOpacity>
-            </Animated.View>
             <View style={styles.card}>
                 <Image source={item.image} style={styles.image} />
                 <View style={styles.cardContent}>
@@ -66,10 +52,31 @@ export default ({ item }) => {
                         </View>
                     </View>
                     <View style={styles.cardInfo}>
-                        <Text style={styles.cardInfoTitle}>{item.firstName} {item.lastName}, {item.age}</Text>
-                        <Text style={styles.cardInfoSubTitle}>
-                            Je suis un ingénieur capable de s’adapter et apprendre très rapidement
-                        </Text>
+                        <TouchableWithoutFeedback>
+                            <View>
+                                <Text style={styles.cardInfoTitle}>{item.firstName} {item.lastName}, {item.age}</Text>
+                                <Text style={styles.cardInfoSubTitle}>
+                                    Je suis un ingénieur capable de s’adapter et apprendre très rapidement
+                                </Text>
+                            </View>
+                        </TouchableWithoutFeedback>
+                        <Animated.View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-around',
+                            alignItems: 'center',
+                            transform: [{ scale }],
+
+                        }}>
+                            <TouchableOpacity style={styles.iconLikedBtn}>
+                                <Ionicons name="heart" size={30} color='tomato' />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.iconLikedBtn}>
+                                <Ionicons name="star" size={30} color={SEAGREEN_COLOR} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.iconLikedBtn}>
+                                <Ionicons name="close" size={30} color={CRIMSON_COLOR} />
+                            </TouchableOpacity>
+                        </Animated.View>
                     </View>
                 </View>
             </View>
@@ -119,8 +126,8 @@ const styles = StyleSheet.create({
     },
     iconLikedBtn: {
         backgroundColor: '#FFF',
-        height: 45,
-        width: 45,
+        height: 50,
+        width: 50,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 100,
@@ -128,6 +135,6 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 5 },
         shadowOpacity: 0.55,
         marginHorizontal: 10,
-        marginTop: 40
+        marginTop: 20
     }
 })

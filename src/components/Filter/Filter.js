@@ -5,16 +5,9 @@ import { ListItem } from "react-native-elements";
 
 export default class Filter extends Component {
 
-    constructor(props) {
-        super(props)
-        const anim = new Animated.Value(0)
-        const pan = PanResponder.create({
-
-        })
-    }
-
     render = () => {
         const { item, touchEnd } = this.props
+
         return (
             <Animated.View style={{ borderRadius: 30, marginHorizontal: 5 }}>
                 <ListItem bottomDivider={item.bottomDivider}>

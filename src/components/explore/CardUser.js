@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import Proptypes from 'prop-types'
-import { Animated, PanResponder, StyleSheet, View } from 'react-native'
+import { Animated, PanResponder, StyleSheet, TouchableWithoutFeedback, View } from 'react-native'
 import { SCREEN_WIDTH } from 'App'
 
 const SWIPE_THRESHOLD = 130
@@ -22,7 +22,7 @@ export default class CardUser extends Component {
         const pan = PanResponder.create({
             onStartShouldSetPanResponder: () => true,
             onPanResponderMove: (e, state) => {
-                position.setValue({ x: state.dx, y: 0 })
+                position.setValue({ x: state.dx, y: state.dy })
             },
             onPanResponderRelease: (e, state) => {
                 if (state.dx > SWIPE_THRESHOLD) {
@@ -37,8 +37,8 @@ export default class CardUser extends Component {
 
         //Value get for rotation after interpolate the position x of animated
         this.rotation = position.x.interpolate({
-            inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
-            outputRange: ['-45deg', '0deg', '45deg'],
+            inputRange: [-SCREEN_WIDTH, 0, SCREEN_WIDTH],
+            outputRange: ['-120deg', '0deg', '120deg'],
             extrapolate: 'clamp'
         })
 
@@ -52,29 +52,15 @@ export default class CardUser extends Component {
         //Value get scale for next card after interpolate the position x of animated
         this.scaleNext = position.x.interpolate({
             inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
-            outputRange: [1, 0.5, 1],
+            outputRange: [1, 0.8, 1],
             extrapolate: 'clamp'
         })
 
-        //Value get opacity for top card liked button after interpolate the position x of animated
-        this.likedBtnOpacityPrimary = position.x.interpolate({
-            inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
-            outputRange: [1, 1, 0.5],
-            extrapolate: 'clamp'
-        })
-
-        //Value get opacity for back card liked button after interpolate the position x of animated
-        this.likedBtnOpacitySecondary = position.x.interpolate({
-            inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
-            outputRange: [1, 0, 1],
-            extrapolate: 'clamp'
-        })
 
         this.state = {
             current: 0,
             position,
             pan,
-            likedPosioned: 0
         }
     }
 
@@ -116,25 +102,10 @@ export default class CardUser extends Component {
         }
     }
 
-    //Global style for the animated container
-    styles = (animated) => {
-        const { container } = styles
-        const transform = this.transformAndRotate()
-        if (!animated) return [
-            container,
-        ]
-        return [
-            container,
-        ]
-
-    }
     // Called to render an component for each item in the data
     renderCard = () => {
 
         const { current } = this.state
-
-        const animatedStyle = this.styles(true)
-        const notAnimatedStyle = this.styles(false)
 
         if (current == this.props.data.length) {
             return this.props.emptyCard()
@@ -184,12 +155,14 @@ export default class CardUser extends Component {
                             bottom: 0,
                             alignSelf: 'center',
                             marginVertical: 5,
-                            borderRadius: 10
+                            borderRadius: 10,
+                            opacity: this.opacityNext,
+                            transform: [{ scale: this.scaleNext }]
                         }
                     ]
                 }
                     key={index}>
-                    {this.props.renderCard(item, index)}
+                    {this.props.renderCard(item, index, this.state.position)}
                 </Animated.View>
             )
         }).reverse()
