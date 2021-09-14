@@ -64,8 +64,6 @@ export default ({ item, animated }) => {
                             flexDirection: 'row',
                             justifyContent: 'space-around',
                             alignItems: 'center',
-                            transform: [{ scale }],
-
                         }}>
                             <TouchableOpacity style={styles.iconLikedBtn}>
                                 <Ionicons name="heart" size={30} color='tomato' />

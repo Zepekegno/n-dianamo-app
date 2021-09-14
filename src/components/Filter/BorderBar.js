@@ -11,7 +11,7 @@ export default class BorderBar extends Component {
                 backgroundColor: DIMGRAY_COLOR,
                 paddingHorizontal: SCREEN_WIDTH / 2 - 150,
                 paddingVertical: 2,
-                left: SCREEN_WIDTH / 3,
+                left: '45%',
                 top: 2
             }} />
         )

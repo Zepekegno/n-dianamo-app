@@ -30,12 +30,20 @@ export default class ChatScreen extends Component {
     }
 
     render() {
+
         return (
-            <>
-                <Header component={<HeaderContent/>} />
-                <ChatMessages navigation={this.props.navigation}/>
-            </>
+            <ChatStack.Navigator>
+                <ChatStack.Screen name='Messages'>
+                    {(props) => <ChatMessages {...props} />}
+                </ChatStack.Screen>
+            </ChatStack.Navigator>
         )
+        // return (
+        //     <>
+        //         <Header component={<HeaderContent/>} />
+        //         <ChatMessages navigation={this.props.navigation}/>
+        //     </>
+        // )
     }
 }
 
@@ -105,7 +113,7 @@ class MsgListHeader extends Component {
         data: PropTypes.array
     }
 
-    renderItem = ({ item}) => {
+    renderItem = ({ item }) => {
         const { navigation } = this.props
         return (
             <TouchableOpacity onPress={() => navigation.navigate('Messages', { id: item.id })} style={{

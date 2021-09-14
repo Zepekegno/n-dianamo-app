@@ -11,7 +11,6 @@ export default ActivityStatus = () => {
 
     return (
         <View style={{
-            flexWrap: 'wrap',
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-around',
