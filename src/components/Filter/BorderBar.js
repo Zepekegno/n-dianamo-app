@@ -7,12 +7,11 @@ export default class BorderBar extends Component {
     render = () => {
         return (
             <View style={{
-                position: 'absolute',
                 backgroundColor: DIMGRAY_COLOR,
                 paddingHorizontal: SCREEN_WIDTH / 2 - 150,
                 paddingVertical: 2,
-                left: '45%',
-                top: 2
+                marginTop: 2,
+                alignSelf: 'center'
             }} />
         )
     }

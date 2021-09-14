@@ -1,6 +1,6 @@
 //Import react and library
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import {BLUE_COLOR, CRIMSON_COLOR, DIMGRAY_COLOR } from "colors/ConstantColors";
+import { BLUE_COLOR, CRIMSON_COLOR, DIMGRAY_COLOR } from "colors/ConstantColors";
 import React, { Component } from "react";
 
 //Import Screen
@@ -34,7 +34,7 @@ export default class Main extends Component {
                     name="Profile"
                     component={ProfileScreen}
                     options={(params) => ProfileScreen.BottomTabNavigationOptions(params)}
-                     />
+                />
             </BottomTab.Navigator>
         )
     }
@@ -45,7 +45,7 @@ export default class Main extends Component {
             activeTintColor: BLUE_COLOR,
             inactiveTintColor: DIMGRAY_COLOR,
             showIcon: true,
-            showLabel: true,
+            showLabel: false,
             labelStyle: {
                 fontSize: 15,
                 margin: 0,

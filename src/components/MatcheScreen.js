@@ -3,7 +3,7 @@ import React, { Component, useRef } from "react";
 import { PanResponder, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import Animated from "react-native-reanimated";
 
-import Icons from 'react-native-vector-icons/SimpleLineIcons'
+import Icons from 'react-native-vector-icons/Ionicons'
 
 import Matches from "./matches/Matches";
 import MenuContextuel from "./MenuContextuel";
@@ -31,41 +31,12 @@ export default class MatcheScreen extends Component {
         }
     }
 
-    menu = () => {
-        return (
-            <View>
-                <TouchableOpacity>
-                    <Text>Matche d'aujourd'huit</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Text>Match d'il y a 2 jours</Text>
-                </TouchableOpacity>
-            </View>
-        )
-    }
-
-    isShow = (show = true) => {
-        !show ? this.setState({ isVisible: false }) : this.setState({ isVisible: show })
-    }
-
     render() {
         return (
             <>
-                <MenuContextuel render={this.menu} isVisible={this.state.isVisible} />
                 <StackHeader.Navigator>
-                    <StackHeader.Screen name="Matches" options={{
-                        headerRight: ({ tintColor }) => {
-                            return (
-                                <View>
-                                    <TouchableOpacity onPress={this.isShow}>
-                                        <Icons name="options-vertical" size={20} color={tintColor} />
-                                    </TouchableOpacity>
-                                </View>
-                            )
-                        }
-
-                    }}>
-                        {(props) => <Matching showMenu={this.isShow} {...props} />}
+                    <StackHeader.Screen name="Matches">
+                        {(props) => <Matching {...props} />}
                     </StackHeader.Screen>
                 </StackHeader.Navigator>
             </>
@@ -74,18 +45,9 @@ export default class MatcheScreen extends Component {
 }
 
 const Matching = (props) => {
-    const { showMenu } = props
-    const pan = useRef(PanResponder.create({
-        onStartShouldSetPanResponderCapture: () => true,
-        onPanResponderGrant: () => {
-            showMenu(false)
-        }
-    })).current
     return (
-        <Animated.View {...pan.panHandlers}>
-            <ScrollView>
-                <Matches />
-            </ScrollView>
-        </Animated.View>
+        <ScrollView>
+            <Matches />
+        </ScrollView>
     )
 }

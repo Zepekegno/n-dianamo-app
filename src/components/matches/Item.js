@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { StyleSheet, TouchableWithoutFeedback, View, Image, Text } from 'react-native'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import Icons from 'react-native-vector-icons/Ionicons'
 export default ({ item }) => {
     const navigation = useNavigation()
     return (
@@ -12,7 +12,7 @@ export default ({ item }) => {
                 </View>
                 <View style={{ paddingHorizontal: 5, flexDirection: 'row', alignItems: 'center' }}>
                     <Text style={{ fontSize: 18, }}>{item.firstName}, {item.age} </Text>
-                    < MaterialCommunityIcons {...LikedType(item.likedType)} style={{ marginHorizontal: 10 }} />
+                    <Icons {...LikedType(item.likedType)} style={{ marginHorizontal: 10 }} />
                 </View>
             </View>
         </TouchableWithoutFeedback>

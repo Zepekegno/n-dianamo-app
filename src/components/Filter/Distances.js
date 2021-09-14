@@ -13,7 +13,7 @@ export default class Distances extends Component {
                 <View style={{
                     flexDirection: 'row',
                     alignItems: 'center',
-                    justifyContent: 'flex-start',
+                    justifyContent: 'space-around',
                 }}>
                     <RadioButton.Item label="1-10" value="1" style={{
                         backgroundColor: '#F8F8F8',

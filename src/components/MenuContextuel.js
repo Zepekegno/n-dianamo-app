@@ -6,7 +6,7 @@ export default (props) => {
         <View style={{
             position: 'absolute',
             right: 5,
-            zIndex: 1000,
+            zIndex: isVisible ? 1000 : 0,
             top: 10,
             backgroundColor: '#FFF',
             shadowColor: '#222',

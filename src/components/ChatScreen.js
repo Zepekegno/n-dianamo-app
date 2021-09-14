@@ -6,7 +6,6 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Avatar, Badge, SearchBar } from "react-native-elements";
 import { FlatList } from "react-native-gesture-handler";
 
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Icons from 'react-native-vector-icons/SimpleLineIcons'
 import { ListUser } from "utils/Listuser";
@@ -20,9 +19,9 @@ export default class ChatScreen extends Component {
     static BottomTabNavigationOptions = (props) => {
         return {
             tabBarIcon: ({ focused, color }) => {
-                return <Icons name='heart' size={25} color={color} />
+                return <Ionicons name='chatbubbles-outline' size={25} color={color} />
             },
-            tabBarBadge: 3,
+            tabBarBadge: 2,
             tabBarBadgeStyle: {
                 top: -2
             }
