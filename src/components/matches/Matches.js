@@ -11,9 +11,6 @@ export default () => {
                 return (
                     <CardMatches key={i}>
                         <CardMatches.Content>
-                            <CardMatches.Icons>
-                                <LikedIcon/>
-                            </CardMatches.Icons>
                             <CardMatches.Item item={ListUser[i]} />
                         </CardMatches.Content>
                     </CardMatches>
