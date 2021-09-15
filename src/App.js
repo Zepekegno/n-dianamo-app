@@ -18,6 +18,7 @@ import Main from 'components/Main';
 import Auth from 'components/Auth';
 import Messages from 'components/Messages';
 import ShowProfleScreen from 'components/ShowProfleScreen';
+import { navigationRef } from 'utils/Navigation';
 
 const UserAuth = true
 
@@ -36,7 +37,7 @@ export default class App extends Component {
       )
     } else {
       return (
-        <NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
           <Stack.Navigator >
             <Stack.Screen name="Main" component={Main} options={{
               headerShown: false
@@ -44,10 +45,10 @@ export default class App extends Component {
             <Stack.Screen
               name="Messages"
               component={Messages}
-              options={(params) => Messages.navigationOptions(params)}/>
+              options={(params) => Messages.navigationOptions(params)} />
             <Stack.Screen name="ModalComponent" component={ModalCompnent} options={{
             }} />
-             <Stack.Screen name="ShowProfile" component={ShowProfleScreen} options={ShowProfleScreen.navigationOptions} />
+            <Stack.Screen name="ShowProfile" component={ShowProfleScreen} options={ShowProfleScreen.navigationOptions} />
           </Stack.Navigator>
         </NavigationContainer>
       )

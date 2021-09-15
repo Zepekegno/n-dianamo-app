@@ -1,50 +1,63 @@
+import { BLUE_COLOR, DIMGRAY_COLOR } from 'colors/ConstantColors'
 import React from 'react'
-import {
-    Animated,
-    Image,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
-} from 'react-native'
-
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Avatar } from 'react-native-elements'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const AVATAR_SIZE = 70
-const SPACING = 15
+const MARGIN = 20
 
 export default (props) => {
-    const { item, index, navigation } = props
-
-    const goto = (e) => {
-        navigation.navigate('Messages', { id: index })
-    }
-
+    const { item, index } = props
+    const text = 'Bonjour tout le monde vous allez bien'
     return (
-        <TouchableOpacity key={index} onPress={goto}>
+        <TouchableOpacity style={styles.msg}>
             <View style={{
                 flexDirection: 'row',
-                padding: SPACING,
-                backgroundColor: 'rgba(255,255,255,0.9)',
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 10 },
-                shadowOpacity: 0.8,
-                shadowRadius: 20,
-                marginBottom:SPACING/3,
-                marginHorizontal:SPACING/2,
-                borderRadius:10
+                alignItems: 'center'
             }}>
-                <Image source={item.image} style={{
-                    width: AVATAR_SIZE,
+                <Avatar source={item.image} containerStyle={{
                     height: AVATAR_SIZE,
-                    borderRadius: AVATAR_SIZE,
-                    marginRight: SPACING / 2
+                    width: AVATAR_SIZE,
+                }} avatarStyle={{
+                    borderRadius: AVATAR_SIZE
                 }} />
-                <View style={{ marginLeft: SPACING / 2 }}>
-                    <Text style={{ fontSize: 18, fontWeight: '700' }}>{item.firstName} {item.lastName} </Text>
-                    <Text style={{ fontSize: 18, opacity: .7 }}>Hello me comment tus</Text>
-                    <Text style={{ fontSize: 16, opacity: .8, color: '#0099cc' }}>il y a 2 min</Text>
+                <View style={{ paddingHorizontal: MARGIN / 2 }}>
+                    <Text style={styles.msgTitle}>{item.firstName} {item.lastName}</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Text style={styles.msgContent}>Vous: {text.substr(0, 15)}</Text>
+                        <Text style={styles.msgTimes}>maint...</Text>
+                    </View>
                 </View>
+            </View>
+            <View style={{}}>
+                <Ionicons name="checkmark-done" size={20} />
             </View>
         </TouchableOpacity>
     )
 }
+
+const styles = StyleSheet.create({
+    msg: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: MARGIN,
+        marginVertical: MARGIN / 2
+    },
+    msgTitle: {
+        fontSize: 15,
+        fontWeight: '700',
+        textTransform: 'uppercase',
+    },
+    msgContent: {
+        color: DIMGRAY_COLOR,
+        fontSize: 16
+    },
+
+    msgTimes: {
+        fontWeight: '300',
+        color: BLUE_COLOR,
+        paddingHorizontal: 5
+    }
+})
