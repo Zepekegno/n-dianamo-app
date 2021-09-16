@@ -49,14 +49,14 @@ export default class HeaderList extends Component {
                         width: AVATAR_SIZE,
                         height: AVATAR_SIZE,
                         marginHorizontal: MARGIN,
+                        borderWidth: 2.5,
+                        borderColor: ROYALBLUE_COLOR,
+                        padding: 2,
+                        borderRadius: AVATAR_SIZE
                     }}
-                        avatarStyle={{
-                            borderRadius: AVATAR_SIZE,
-                            borderWidth: 1.5,
-                            borderColor: ROYALBLUE_COLOR
-                        }}
+                        avatarStyle={{ borderRadius: AVATAR_SIZE }}
                     />
-                    <Badge status='error' containerStyle={{
+                    {/* <Badge status='error' containerStyle={{
                         position: 'absolute',
                         right: 0
                     }} badgeStyle={{
@@ -66,7 +66,7 @@ export default class HeaderList extends Component {
 
                     }} value={2} textStyle={{
                         fontSize: 12
-                    }} />
+                    }} /> */}
                     <Text style={{
                         lineHeight: 20,
                         textAlign: 'center',
@@ -97,16 +97,9 @@ export default class HeaderList extends Component {
                         placeholder='Recherche'
                     />
                 </View>
-                <Animated.FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    snapToInterval={this.state.offset}
-                    decelerationRate="fast"
-                    pagingEnabled
-                    data={ListUser}
-                    keyExtractor={(_, i) => i.toString()}
-                    renderItem={this.renderItem}
-                />
+                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                    {ListUser.map((item, index) => this.renderItem({ item, index }))}
+                </ScrollView>
             </View >
         )
     }
