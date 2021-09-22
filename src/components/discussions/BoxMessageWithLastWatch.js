@@ -24,7 +24,7 @@ const Box = ({ watch, value, image, session }) => {
     const lastWatch = useDateFormat(watch)
     return (
         <View style={{ flex: 1 }}>
-            <LastWatch lastWatch={watch} />
+            <LastWatch lastWatch={lastWatch} />
             {value.map((item, i) => (
                 <View key={i}>
                     {item.id_sender != session && (<Receiver item={item} image={image} />)}

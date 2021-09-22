@@ -5,7 +5,7 @@ import { StyleSheet, Text, View } from 'react-native'
 export default ({ lastWatch }) => {
     return (
         <View style={{
-            backgroundColor: DIMGRAY_COLOR,
+            backgroundColor: "#dcdcdc",
             elevation: 3,
             paddingVertical: 2,
             paddingHorizontal: 15,
@@ -19,7 +19,6 @@ export default ({ lastWatch }) => {
                 color: '#222',
                 fontSize: 16,
                 fontFamily: 'Montserrat_600SemiBold',
-                color: '#FFF'
             }}>{lastWatch}</Text>
         </View>
     )

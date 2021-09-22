@@ -16,10 +16,10 @@ export default (date) => {
     const dateNow = new Date(Date.now())
 
     if (nbr == today) {
-        return 'today'
+        return "Aujourd'huit"
     }
     if (nbr == yesterDay) {
-        return 'yesterDay'
+        return 'Hier'
     }
     if (oldDay.getFullYear() < dateNow.getFullYear()) {
         return `${JOUR[oldDay.getDay()]} ${oldDay.getDate()} ${MOIS[oldDay.getMonth()]} ${oldDay.getFullYear()}`

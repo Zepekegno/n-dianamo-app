@@ -19,10 +19,10 @@ export default ({ onSend }) => {
             borderRadius: 15,
             paddingHorizontal: 10,
         }}>
-            <TouchableOpacity style={{}}>
+            <TouchableOpacity style={{ zIndex: 1000 }}>
                 <Ionicons name="md-happy" size={25} color='#FFF' />
             </TouchableOpacity>
-            <TextInput placeholder='tap quelque chose' multiline={true} scrollEnabled
+            <TextInput placeholder='tap quelque chose' multiline={true} scrollEnabled={true}
                 style={{
                     color: '#FFF',
                     fontSize: 17,
@@ -32,10 +32,11 @@ export default ({ onSend }) => {
                     maxHeight: 100
                 }} placeholderTextColor='#FFF'
                 onChangeText={setText}
+                onSubmitEditing={sendMessage}
                 value={text}
             />
 
-            <TouchableOpacity onPress={sendMessage}>
+            <TouchableOpacity onPress={sendMessage} style={{ zIndex: 1000 }}>
                 <Ionicons name="md-paper-plane" size={25} color='#FFF' />
             </TouchableOpacity>
         </View>
