@@ -1,9 +1,7 @@
 import React from 'react'
-import { FlatList, ScrollView, View } from 'react-native'
-import HeaderList from './HeaderList'
+import { View } from 'react-native'
 import MessageList from './MessageList'
 import Message from 'Dump/Message'
-import { ListUser } from 'utils/Listuser'
 
 //const users = ListUser
 

@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { Animated, FlatList, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import PropTypes, { array } from 'prop-types'
+import { Animated, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { Avatar, Badge } from 'react-native-elements'
-import Icons from 'react-native-vector-icons/Ionicons'
 import { ROYALBLUE_COLOR } from 'colors/ConstantColors'
 import { ListUser } from 'utils/Listuser'
 
@@ -31,6 +30,9 @@ export default class HeaderList extends Component {
     }
 
     renderItem = ({ item, index }) => {
+        const t = `${item.firstName} ${item.lastName}`
+        const arrayName = t.split(' ')
+        const name = arrayName.length > 2 ? `${arrayName[0]} ${arrayName[1]}...` : `${arrayName[0]} ${arrayName[1]}`
         return (
             <TouchableOpacity
                 key={index}
@@ -56,51 +58,22 @@ export default class HeaderList extends Component {
                     }}
                         avatarStyle={{ borderRadius: AVATAR_SIZE }}
                     />
-                    {/* <Badge status='error' containerStyle={{
-                        position: 'absolute',
-                        right: 0
-                    }} badgeStyle={{
-                        width: AVATAR_SIZE / 3,
-                        height: AVATAR_SIZE / 3,
-                        borderRadius: AVATAR_SIZE / 3,
-
-                    }} value={2} textStyle={{
-                        fontSize: 12
-                    }} /> */}
                     <Text style={{
                         lineHeight: 20,
                         textAlign: 'center',
                         textAlignVertical: 'center',
                         marginTop: 5,
-                    }}>{item.firstName} {item.lastName}</Text>
+                        fontWeight: '700'
+                    }}>{name}</Text>
                 </View>
             </TouchableOpacity>
         )
     }
     render() {
         return (
-            <View>
-                <View style={{
-                    paddingHorizontal: 10,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    borderWidth: StyleSheet.hairlineWidth,
-                    borderRadius: 25,
-                    margin: MARGIN / 2
-                }}>
-                    <Icons name='search-outline' size={20} />
-                    <TextInput style={{
-                        paddingHorizontal: 20,
-                        fontSize: 20,
-                        textTransform: 'capitalize'
-                    }}
-                        placeholder='Recherche'
-                    />
-                </View>
-                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                    {ListUser.map((item, index) => this.renderItem({ item, index }))}
-                </ScrollView>
-            </View >
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                {ListUser.map((item, index) => this.renderItem({ item, index }))}
+            </ScrollView>
         )
     }
 }

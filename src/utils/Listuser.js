@@ -1,7 +1,7 @@
 //List des Utilisatateur par defaut pour les test
 export const ListUser = [
   {
-    id: "1",
+    id: 1,
     firstName: "Kadi",
     lastName: "Diawara",
     image: require("../assets/images/kadi.jpg"),
@@ -13,7 +13,7 @@ export const ListUser = [
     status: 'single',
     school: 'UNC'
   }, {
-    id: "2",
+    id: 2,
     firstName: "Moussa",
     lastName: "Traore",
     image: require("../assets/images/moussa.jpg"),
