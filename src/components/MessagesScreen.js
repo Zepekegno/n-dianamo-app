@@ -1,11 +1,11 @@
-import React, { Component, useEffect, useMemo, useRef, useState } from "react";
-import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from "react-native";
+import React, { useRef, useState } from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
 
 import Message from "Dump/Message";
 import Send from "./discussions/Send";
 import BoxMessageWithLastWatch from "./discussions/BoxMessageWithLastWatch";
 
-const Messages = (props) => {
+const MessagesScreen = (props) => {
     const session = 1
     const user = props.route.params.user
     const [all, setAll] = useState(Message())
@@ -28,6 +28,8 @@ const Messages = (props) => {
         setAll(ori)
     }
 
+
+
     return (
         <View style={styles.container}>
             <ScrollView ref={scrollRef}
@@ -41,7 +43,7 @@ const Messages = (props) => {
     )
 }
 
-export default Messages
+export default MessagesScreen
 
 {/* */ }
 

@@ -1,29 +1,18 @@
 import React, { Component } from "react";
-import { Animated, Easing, PanResponder } from "react-native";
+import { Animated, Easing, PanResponder, Text } from "react-native";
 
 //Icons
-import Icons from 'react-native-vector-icons/SimpleLineIcons'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 //Utitlity
 import { ListUser } from "utils/Listuser";
 
 //Components
-import Header from "./HeaderComponent";
-import HeaderContent from "./profiles/HeaderContent";
-import Profile from "./profiles/Profile";
-import ModalMoreInfo from "./profiles/ModalMoreInfo";
+
 
 const user = ListUser[0]
 
 export default class ProfileScreen extends Component {
-
-    static BottomTabNavigationOptions = (props) => {
-        return {
-            tabBarIcon: ({ focused, color }) => {
-                return <Icons name='user' size={25} color={color} />
-            }
-        }
-    }
 
     constructor(props) {
         super(props)
@@ -35,8 +24,8 @@ export default class ProfileScreen extends Component {
                 Animated.spring(position, {
                     toValue: 0,
                     useNativeDriver: true,
-                    bounciness:15,
-                    speed:60
+                    bounciness: 15,
+                    speed: 60
                 }).start()
 
             }
@@ -49,30 +38,24 @@ export default class ProfileScreen extends Component {
     }
 
     componentDidMount() {
-        this.subsribe = this.props.navigation.addListener('blur',(e)=>{
-           this.state.position.setValue(0)
+        this.subsribe = this.props.navigation.addListener('blur', (e) => {
+            this.state.position.setValue(0)
         })
     }
     componentWillUnmount() {
-       this.subsribe()
+        this.subsribe()
     }
 
     onShow = (state) => {
         Animated.spring(this.state.position, {
             toValue: 1,
             useNativeDriver: true,
-            bounciness:15,
-            speed:60
+            bounciness: 15,
+            speed: 60
         }).start()
     }
 
     render() {
-        return (
-            <>
-                <ModalMoreInfo fadeOut={this.state.position} {...this.props} />
-                <Header component={<HeaderContent onPress={this.onShow} />} />
-                <Profile {...this.state.panResponder.panHandlers} user={user} {...this.props} />
-            </>
-        )
+        return <Text>Home</Text>
     }
 }

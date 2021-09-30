@@ -20,65 +20,65 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { SCREEN_WIDTH } from 'App'
 import { IsEmpty } from 'utils/IsEmpty'
 
-export default ({ item, animated }) => {
+export default ({ item, animated, session }) => {
     const scale = IsEmpty(animated) ? 1 : animated.x.interpolate({
         inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
         outputRange: [0, 1, 0],
         extrapolate: 'clamp'
     })
+    const uri = item.image[0].source
+    console.log(uri)
 
     return (
-        <>
-            <View style={styles.card}>
-                <Image source={item.image} style={styles.image} />
-                <View style={styles.cardContent}>
-                    <View style={styles.cardInfoBtn}>
-                        <View style={{ flexDirection: 'row', marginHorizontal: 10, alignItems: 'center' }}>
-                            <Ionicons name="location-outline" size={18} color={WHITE_COLOR} />
-                            <Text style={{
-                                color: WHITE_COLOR,
-                                marginHorizontal: 5,
-                                fontSize: 16
-                            }}>{item.ville}</Text>
-                        </View>
-                        <Text style={{ fontSize: 16, color: '#FFF' }}>|</Text>
-                        <View style={{ flexDirection: 'row', marginHorizontal: 10, alignItems: 'center' }}>
-                            <Ionicons name="school" size={18} color={WHITE_COLOR} />
-                            <Text style={{
-                                color: WHITE_COLOR,
-                                marginHorizontal: 5,
-                                fontSize: 16
-                            }}>{item.school}</Text>
-                        </View>
+        <View style={styles.card}>
+            {/* <Image source={} style={styles.image} /> */}
+            <View style={styles.cardContent}>
+                <View style={styles.cardInfoBtn}>
+                    <View style={{ flexDirection: 'row', marginHorizontal: 10, alignItems: 'center' }}>
+                        <Ionicons name="location-outline" size={18} color={WHITE_COLOR} />
+                        <Text style={{
+                            color: WHITE_COLOR,
+                            marginHorizontal: 5,
+                            fontSize: 16
+                        }}>{item.ville}</Text>
                     </View>
-                    <View style={styles.cardInfo}>
-                        <TouchableWithoutFeedback>
-                            <View>
-                                <Text style={styles.cardInfoTitle}>{item.firstName} {item.lastName}, {item.age}</Text>
-                                <Text style={styles.cardInfoSubTitle}>
-                                    Je suis un ingénieur capable de s’adapter et apprendre très rapidement
-                                </Text>
-                            </View>
-                        </TouchableWithoutFeedback>
-                        <Animated.View style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-around',
-                            alignItems: 'center',
-                        }}>
-                            <TouchableOpacity style={styles.iconLikedBtn}>
-                                <Ionicons name="heart" size={30} color='tomato' />
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.iconLikedBtn}>
-                                <Ionicons name="star" size={30} color={SEAGREEN_COLOR} />
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.iconLikedBtn}>
-                                <Ionicons name="close" size={30} color={CRIMSON_COLOR} />
-                            </TouchableOpacity>
-                        </Animated.View>
+                    <Text style={{ fontSize: 16, color: '#FFF' }}>|</Text>
+                    <View style={{ flexDirection: 'row', marginHorizontal: 10, alignItems: 'center' }}>
+                        <Ionicons name="school" size={18} color={WHITE_COLOR} />
+                        <Text style={{
+                            color: WHITE_COLOR,
+                            marginHorizontal: 5,
+                            fontSize: 16
+                        }}>{item.school}</Text>
                     </View>
                 </View>
+                <View style={styles.cardInfo}>
+                    <TouchableWithoutFeedback>
+                        <View>
+                            <Text style={styles.cardInfoTitle}>{item.firstname} {item.lastname}, {item.age}</Text>
+                            <Text style={styles.cardInfoSubTitle}>
+                                Je suis un ingénieur capable de s’adapter et apprendre très rapidement
+                            </Text>
+                        </View>
+                    </TouchableWithoutFeedback>
+                    <Animated.View style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-around',
+                        alignItems: 'center',
+                    }}>
+                        <TouchableOpacity style={styles.iconLikedBtn}>
+                            <Ionicons name="heart" size={30} color='tomato' />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.iconLikedBtn}>
+                            <Ionicons name="star" size={30} color={SEAGREEN_COLOR} />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.iconLikedBtn}>
+                            <Ionicons name="close" size={30} color={CRIMSON_COLOR} />
+                        </TouchableOpacity>
+                    </Animated.View>
+                </View>
             </View>
-        </>
+        </View>
     )
 }
 

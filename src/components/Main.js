@@ -2,6 +2,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { BLUE_COLOR, CRIMSON_COLOR, DIMGRAY_COLOR } from "colors/ConstantColors";
 import React, { Component } from "react";
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 //Import Screen
 import ChatScreen from "./ChatScreen";
@@ -21,7 +22,14 @@ export default class Main extends Component {
                 <BottomTab.Screen
                     name="Explore"
                     component={ExploreScreen}
-                    options={(params) => ExploreScreen.BottomTabNavigationOptions(params)} />
+                    options={{
+                        title: 'Explore',
+                        tabBarIcon: ({ color }) => {
+                            return <Ionicons name='md-flame' size={25} color={color} />
+                        }
+
+                    }}
+                />
                 <BottomTab.Screen
                     name="Matches"
                     component={MatcheScreen}
@@ -33,7 +41,11 @@ export default class Main extends Component {
                 <BottomTab.Screen
                     name="Profile"
                     component={ProfileScreen}
-                    options={(params) => ProfileScreen.BottomTabNavigationOptions(params)}
+                    options={{
+                        tabBarIcon: ({ focused, color }) => {
+                            return <Ionicons name='md-person' size={25} color={color} />
+                        }
+                    }}
                 />
             </BottomTab.Navigator>
         )
