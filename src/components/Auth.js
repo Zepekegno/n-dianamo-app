@@ -1,80 +1,93 @@
-import { AuthContext, SCREEN_WIDTH } from "App";
+import { SCREEN_WIDTH, URL } from "App";
 import { DIMGRAY_COLOR } from "colors/ConstantColors";
-import React, { useContext, useState } from "react";
-import { StyleSheet, Text, TextInput, View, TouchableOpacity, Alert } from "react-native";
+import React, { Component, useContext, useState } from "react";
+import { StyleSheet, Text, TextInput, View, TouchableOpacity, Alert, ActivityIndicator } from "react-native";
 import Icons from 'react-native-vector-icons/Ionicons'
 
-export default Auth = () => {
-    const { login } = useContext(AuthContext)
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
-    const [loading, setLoading] = useState(false)
+export default class Auth extends Component {
 
-    const onLogin = async () => {
-        try {
-            const params = `?email=${email}&password=${password}`
-            setLoading(true)
-            const data = await fetch("http://192.168.8.101:3000/users" + params)
-            const dataJson = await data.json()
-            setLoading(true)
-            login(dataJson)
-        } catch (e) {
-            Alert.alert('Erreur', "imposible d'accedé au serveur reesayez plus tard ")
-        }
+    state = {
+        email: '',
+        password: '',
+        loading: false
     }
 
-    const onChangeEmail = (email) => {
-        setEmail(email)
+    onChangeEmail = (email) => {
+        this.setState({ email })
     }
 
-    const onChangePassword = (password) => {
-        setPassword(password)
+    onChangePassword = (password) => {
+        this.setState({ password })
     }
 
-    return (
-        <View style={styles.container}>
-            <Text style={styles.logo}>N'dianamo</Text>
-            <View>
-                <View style={styles.inputBox}>
-                    <TextInput placeholder='Pseudo ou email'
-                        style={styles.input}
-                        textContentType="emailAddress"
-                        value={email}
-                        onChangeText={onChangeEmail}
-                    />
-                    <View style={styles.icons}>
-                        <Icons name="mail" size={25} />
+    onLogin = () => {
+
+    }
+
+    onCreate = () => {
+
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.logo}>N'dianamo</Text>
+                <View>
+                    <View style={styles.inputBox}>
+                        <TextInput placeholder='example@gmail.com'
+                            style={styles.input}
+                            textContentType="emailAddress"
+                            value={this.state.email}
+                            onChangeText={this.onChangeEmail}
+                        />
+                        <View style={styles.icons}>
+                            <Icons name="mail" size={25} />
+                        </View>
+                    </View>
+                    <View style={styles.inputBox}>
+                        <TextInput placeholder='password'
+                            style={styles.input}
+                            secureTextEntry={true}
+                            value={this.state.password}
+                            onChangeText={this.onChangePassword}
+                        />
+                        <View style={styles.icons}>
+                            <Icons name="md-lock-closed" size={25} />
+                        </View>
                     </View>
                 </View>
-                <View style={styles.inputBox}>
-                    <TextInput placeholder='password'
-                        style={styles.input}
-                        secureTextEntry={true}
-                        value={password}
-                        onChangeText={onChangePassword}
-                    />
-                    <View style={styles.icons}>
-                        <Icons name="md-lock-closed" size={25} />
-                    </View>
+                <View style={styles.btnContainer}>
+                    <TouchableOpacity style={[
+                        styles.button,
+                    ]} onPress={this.onLogin} disabled={this.state.loading}>
+
+                        {!this.state.loading ? (
+                            <Text style={{
+                                color: "#FFF",
+                                fontWeight: "700",
+                                fontSize: 18,
+                                textTransform: 'uppercase'
+                            }}>Se Connecter</Text>
+                        ) : (
+                            <ActivityIndicator size="small" color="#FFF" style={{ flex: 1 }} />
+                        )}
+
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[
+                        styles.button,
+                    ]} onPress={this.onCreate}>
+                        <Text style={{
+                            color: "#FFF",
+                            fontWeight: "700",
+                            fontSize: 18,
+                            textTransform: 'uppercase'
+                        }}>Créer un Compte</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
-            <TouchableOpacity style={[
-                styles.button,
-                { backgroundColor: !loading ? '#ff6347' : DIMGRAY_COLOR }
-            ]} onPress={onLogin} disabled={loading}>
-                <Text style={{
-                    color: "#FFF",
-                    fontWeight: "700",
-                    fontSize: 18,
-                    textTransform: 'uppercase'
-                }}>{!loading ? 'Se Connecter' : 'patientez svp...'}</Text>
-            </TouchableOpacity>
-        </View>
-    )
+        )
+    }
 }
-
-
-const INPUT_BOX_SIZE = SCREEN_WIDTH / 2
 
 const styles = StyleSheet.create({
     container: {
@@ -107,11 +120,14 @@ const styles = StyleSheet.create({
         padding: 4
     },
     button: {
-        borderWidth: 1,
         paddingVertical: 10,
         paddingHorizontal: 30,
         borderRadius: 20,
-        marginVertical: 10
+        marginVertical: 10,
+        backgroundColor: 'tomato'
+    },
+    btnContainer: {
+        flexDirection: 'row'
     },
     input: {
         paddingHorizontal: 30,
