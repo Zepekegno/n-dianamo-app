@@ -18,7 +18,6 @@ import {
 
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { SCREEN_WIDTH } from 'App'
-import { IsEmpty } from 'utils/IsEmpty'
 
 export default ({ item, animated, session }) => {
     const scale = IsEmpty(animated) ? 1 : animated.x.interpolate({

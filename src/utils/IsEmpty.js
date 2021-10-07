@@ -1,4 +1,4 @@
-export const IsEmpty = (value) => {
+export default isEmpty = (value) => {
     return (
         value === undefined ||
         value === null ||

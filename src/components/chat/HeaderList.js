@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PropTypes, { array } from 'prop-types'
+import PropTypes from 'prop-types'
 import { Animated, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { Avatar, Badge } from 'react-native-elements'
 import { ROYALBLUE_COLOR } from 'colors/ConstantColors'

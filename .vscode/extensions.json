@@ -1,7 +1,8 @@
 {
     "recommendations": [
         "kacper.autocomplete-extension",
+        "remimarsal.prettier-now",
         "lonefy.vscode-js-css-html-formatter",
-        "remimarsal.prettier-now"
+        "gogocrow.jsx-beautify"
     ]
 }

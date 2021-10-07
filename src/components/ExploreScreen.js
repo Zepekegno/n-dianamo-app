@@ -9,9 +9,7 @@ export default class ExploreScreen extends Component {
 
     render() {
         return (
-            <AuthContext.Consumer>
-                {({ session }) => <MainExplore session={session[0]} />}
-            </AuthContext.Consumer>
+            <MainExplore session={1} />
         )
     }
 }

@@ -1,8 +1,19 @@
-import { combineReducers } from "redux";
+import { combineReducers, createStore, applyMiddleware, compose } from "redux";
+import thunk from 'redux-thunk'
+
+import { loginReducers } from "./reducers/loginReducers";
 import messagesReducers from "./reducers/messagesReducers";
+import registerReducers from "./reducers/registerReducers";
 import usersReducers from "./reducers/usersReducers";
 
-export default combineReducers({
-    users: usersReducers,
-    messages: messagesReducers
-})
+export default createStore(
+    combineReducers({
+        login: loginReducers,
+        register: registerReducers,
+        users: usersReducers,
+        messages: messagesReducers,
+    }),
+    compose(
+        applyMiddleware(thunk)
+    )
+)
