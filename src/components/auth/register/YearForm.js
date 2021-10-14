@@ -1,24 +1,25 @@
-import AuthContext from 'contexts/AuthContext'
-import React, { useContext, useRef, useState } from 'react'
-import { ScrollView, StyleSheet, TextInput, TouchableOpacity, View, Text } from 'react-native'
-import Animated from 'react-native-reanimated'
+import React, { useState } from 'react'
+import { ScrollView, StyleSheet, TouchableOpacity, View, Text } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
 import Icons from 'react-native-vector-icons/Ionicons'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { ADD_USER_YEAR } from 'stores/reducers/registerReducers'
 import isEmpty from 'utils/isEmpty'
 import AnimatInput from '../AnimatInput'
 
 export default (props) => {
-    const [year, setYear] = useState('ff')
+    const [year, setYear] = useState()
     const [errors, setErrors] = useState({ error: false, year: false })
 
     const dispatch = useDispatch()
 
+    /** Get year input content */
     const getYear = (text) => {
         setYear(text)
         !isEmpty(errors) ? setErrors('') : null
     }
 
+    /** Get handle next form input */
     const nextForm = () => {
         if (isEmpty(year)) {
             setErrors({ ...errors, error: true, year: true })
@@ -28,42 +29,42 @@ export default (props) => {
         dispatch({ type: ADD_USER_YEAR, payload: { year } })
         props.navigation.navigate('Gender')
     }
+
+    /** Get handle prev form input */
     const PrevForm = () => {
         props.navigation.goBack()
     }
 
     return (
-        <ScrollView style={{ flex: 1 }}>
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <Text style={styles.title}>Quelle est votre date de naissance ?</Text>
-                    {!errors.error && (<Text style={styles.titleSub}>Choisissez votre date de naissance</Text>)}
-                    {errors.error && (
-                        <View style={styles.error}>
-                            <Text style={styles.errorTitle}>Veuillez Entrer une date naissance correct svp !</Text>
-                            <Icons name="md-alert-circle" size={18} color="red" style={styles.errorIcon} />
-                        </View>
-                    )}
-                </View>
-                <View style={styles.boxContainer}>
-                    <AnimatInput
-                        value={year}
-                        placeholder="year"
-                        onChangeText={getYear}
-                        multiline={false}
-                        borderColor={errors.year}
-                    />
-                </View>
-                <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button} onPress={PrevForm}>
-                        <Text style={styles.buttonText}>PREV</Text>
-                    </TouchableOpacity>
+        <LinearGradient style={{ flex: 1 }} colors={['#fffafa', 'tomato']}>
+            <ScrollView style={{ flex: 1 }}>
+                <View style={styles.container}>
+                    <View style={styles.header}>
+                        <Text style={styles.title}>Quelle est votre date de naissance ?</Text>
+                        {!errors.error && (<Text style={styles.titleSub}>Choisissez votre date de naissance</Text>)}
+                        {errors.error && (
+                            <View style={styles.error}>
+                                <Text style={styles.errorTitle}>Veuillez Entrer une date naissance correct svp !</Text>
+                                <Icons name="md-alert-circle" size={18} color="red" style={styles.errorIcon} />
+                            </View>
+                        )}
+                    </View>
+                    <View style={{ flexBasis: '100%' }}>
+                        <AnimatInput
+                            title="Votre age"
+                            placeholder="1/1/1970"
+                            onChangeText={getYear}
+                            multiline={false}
+                            borderColor={errors.year}
+                        />
+                    </View>
                     <TouchableOpacity style={styles.button} onPress={nextForm}>
                         <Text style={styles.buttonText}>NEXT</Text>
                     </TouchableOpacity>
                 </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </LinearGradient>
+
     )
 }
 
@@ -79,12 +80,13 @@ const styles = StyleSheet.create({
     title: {
         textAlign: 'center',
         fontSize: 20,
+        fontWeight: '700'
     },
     titleSub: {
         color: '#222',
-        opacity: 0.7,
         textAlign: 'center',
-        marginTop: 5
+        marginTop: 5,
+        fontSize: 16
     },
     error: {
         flexDirection: 'row',
@@ -94,8 +96,9 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     errorTitle: {
-        color: 'red',
-        fontSize: 16
+        color: 'darkred',
+        fontSize: 16,
+        fontWeight: '700'
     },
     errorIcon: {
         marginLeft: 10
@@ -111,7 +114,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     button: {
-        backgroundColor: 'blue',
+        backgroundColor: 'tomato',
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 10,
@@ -125,8 +128,4 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase',
         fontWeight: '700'
     },
-    input: {
-        fontSize: 18,
-        paddingHorizontal: 10
-    }
 })

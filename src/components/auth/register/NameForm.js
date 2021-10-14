@@ -1,29 +1,38 @@
-import AuthContext from 'contexts/AuthContext'
-import React, { useContext, useRef, useState } from 'react'
-import { ScrollView, StyleSheet, TextInput, TouchableOpacity, View, Text } from 'react-native'
-import Animated from 'react-native-reanimated'
+import React, { useState } from 'react'
+import { ScrollView, StyleSheet, TouchableOpacity, View, Text } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
 import Icons from 'react-native-vector-icons/Ionicons'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { ADD_USER_NAME } from 'stores/reducers/registerReducers'
 import isEmpty from 'utils/isEmpty'
 import AnimatInput from '../AnimatInput'
 
 export default (props) => {
-    const [firstname, setFirstname] = useState('l')
-    const [lastname, setLastname] = useState('m')
-    const [errors, setErrors] = useState({ error: false, firstname: false, lastname: false })
 
+    const [firstname, setFirstname] = useState()
+    const [lastname, setLastname] = useState()
+    const [errors, setErrors] = useState({
+        error: false,
+        firstname: false,
+        lastname: false
+    })
+
+    /** Redux state register */
     const dispatch = useDispatch()
 
+    /** Get frist name input content */
     const getFirstname = (text) => {
         setFirstname(text)
-        !isEmpty(errors) ? setErrors('') : null
-    }
-    const getLastname = (text) => {
-        setLastname(text)
-        !isEmpty(errors) ? setErrors('') : null
+        if (errors.firstname == true) setErrors({ ...errors, error: false, firstname: false, lastname: false })
     }
 
+    /** Get last name input content */
+    const getLastname = (text) => {
+        setLastname(text)
+        if (errors.lastname == true) setErrors({ ...errors, error: false, lastname: false, firstname: false })
+    }
+
+    /** Get handle next form input */
     const nextForm = () => {
         if (isEmpty(firstname) && !isEmpty(lastname)) {
             setErrors({ ...errors, error: true, firstname: true })
@@ -41,45 +50,50 @@ export default (props) => {
     }
 
     return (
-        <ScrollView style={{ flex: 1 }} contentContainerStyle={{
-            justifyContent: 'center',
-            alignItems: 'center'
-        }}>
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <Text style={styles.title}>Comment vous appelez vous?</Text>
-                    {!errors.error && (<Text style={styles.titleSub}>Entrez votre nom et votre prenom</Text>)}
-                    {errors.error && (
-                        <View style={styles.error}>
-                            <Text style={styles.errorTitle}>Veuillez entrer votre nom et votre prenom</Text>
-                            <Icons name="md-alert-circle" size={18} color="red" style={styles.errorIcon} />
+        <LinearGradient style={{ flex: 1 }} colors={['#fffafa', 'tomato']}>
+            <ScrollView style={{ flex: 1, }}>
+                <View style={styles.container}>
+                    <View style={styles.header}>
+                        <Text style={styles.title}>Comment vous appelez vous?</Text>
+                        {!errors.error && (<Text style={styles.titleSub}>Entrez votre nom et votre prenom</Text>)}
+                        {errors.error && (
+                            <View style={styles.error}>
+                                <Text style={styles.errorTitle}>Veuillez entrer votre nom et votre prenom</Text>
+                                <Icons name="md-alert-circle" size={18} color="red" style={styles.errorIcon} />
+                            </View>
+                        )}
+                    </View>
+                    <View style={styles.boxContainer}>
+                        <View style={{ flexBasis: '50%' }}>
+                            <AnimatInput
+                                title="Firt name"
+                                placeholder="Jhon"
+                                onChangeText={getFirstname}
+                                multiline={false}
+                                borderColor={errors.firstname}
+                                onSubmitEditing={nextForm}
+                            />
                         </View>
-                    )}
+                        <View style={{ flexBasis: '50%' }}>
+                            <AnimatInput
+                                title="Last Name"
+                                placeholder="Does"
+                                onChangeText={getLastname}
+                                multiline={false}
+                                borderColor={errors.lastname}
+                            />
+                        </View>
+                    </View>
+                    <TouchableOpacity style={styles.button} onPress={nextForm}>
+                        <Text style={styles.buttonText}>NEXT</Text>
+                    </TouchableOpacity>
                 </View>
-                <View style={styles.boxContainer}>
-                    <AnimatInput
-                        value={firstname}
-                        placeholder="First name"
-                        onChangeText={getFirstname}
-                        multiline={false}
-                        borderColor={errors.firstname}
-                    />
-                    <AnimatInput
-                        value={lastname}
-                        placeholder="first name"
-                        onChangeText={getLastname}
-                        multiline={false}
-                        borderColor={errors.lastname}
-                    />
-                </View>
-                <TouchableOpacity style={styles.button} onPress={nextForm}>
-                    <Text style={styles.buttonText}>NEXT</Text>
-                </TouchableOpacity>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </LinearGradient>
     )
 }
 
+/** Styles */
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -96,9 +110,9 @@ const styles = StyleSheet.create({
     },
     titleSub: {
         color: '#222',
-        opacity: 0.7,
         textAlign: 'center',
-        marginTop: 5
+        marginTop: 5,
+        fontSize: 16
     },
     error: {
         flexDirection: 'row',
@@ -108,9 +122,9 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     errorTitle: {
-        color: 'red',
+        color: 'darkred',
         fontSize: 16,
-        opacity: 0.7
+        fontWeight: '700'
     },
     errorIcon: {
         marginLeft: 10
@@ -118,10 +132,11 @@ const styles = StyleSheet.create({
     boxContainer: {
         flexDirection: 'row',
         justifyContent: "space-between",
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
+        marginTop: 20,
     },
     button: {
-        backgroundColor: 'blue',
+        backgroundColor: 'tomato',
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 10,

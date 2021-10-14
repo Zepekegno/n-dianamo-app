@@ -10,30 +10,30 @@ const action_init = {
     }
 }
 
-const state_init = {
-    loged: null,
-    token: null
+const init = {
+    logedId: 1,
+    token: 1,
 }
 
-export const loginReducers = (state = {}, action) => {
+export const loginReducers = (state = init, action) => {
 
     switch (action.type) {
         case SIGN_IN_ACTION:
             return {
                 ...state,
-                loged: action.payload.loged,
+                logedId: action.payload.logedId,
                 token: action.payload.token,
             }
         case SIGN_UP_ACTION:
             return {
                 ...state,
-                loged: action.payload.loged,
+                logedId: action.payload.logedId,
                 token: action.payload.token,
             }
         case LOGOUT_ACTION:
             return {
                 ...state,
-                loged: null,
+                logedId: null,
                 token: null,
             }
         default:

@@ -1,78 +1,94 @@
-import React, { useContext } from 'react'
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-import { Text, TouchableOpacity, View } from 'react-native';
-import { Avatar } from 'react-native-elements';
-
+//Import react and library
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
+import { createStackNavigator } from "@react-navigation/stack";
+import { CRIMSON_COLOR } from "colors/ConstantColors";
+import React, { Component } from "react";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
-import { navigationRef } from 'hooks/useGetNavigation';
-import MessagesScreen from './MessagesScreen';
-import Main from './Main';
+//Import Screen
+import ChatScreen from "./ChatScreen";
+import ExploreScreen from "./ExploreScreen"
+import MatchScreen from "./MatchScreen";
+
+const BottomTab = createMaterialTopTabNavigator()
 
 
-const Stack = createStackNavigator()
+export default class MainNavigator extends Component {
 
-export default MainNavigator = () => {
-    return (
-        <NavigationContainer ref={navigationRef} >
-            <Stack.Navigator>
-                <Stack.Screen name="Main" component={Main} options={{
-                    headerShown: false
-                }} />
-                <Stack.Screen
-                    name="Message"
-                    component={MessagesScreen}
-                    options={({ route, navigation }) => ({
-                        headerTitle: () => {
-                            return <View style={{
-                                flexDirection: 'row',
-                                alignItems: 'center'
-                            }}>
-                                <Avatar source={route.params.user.image} containerStyle={{
-                                    width: 35,
-                                    height: 35,
-                                    borderWidth: 1,
-                                    borderColor: 'blue',
-                                    padding: 2,
-                                    borderRadius: 35
-                                }} avatarStyle={{
-                                    borderRadius: 35
-                                }} />
-                                <Text style={{
-                                    fontSize: 16,
-                                    fontWeight: '700',
-                                    marginHorizontal: 10,
-                                    textTransform: 'uppercase'
-                                }}>{route.params.user.firstName}</Text>
-                            </View>
-                        },
-                        headerRight: () => {
-                            return (
-                                <View style={{
-                                    flexDirection: 'row',
-                                    alignItems: 'center',
-                                }}>
-                                    <TouchableOpacity style={{
-                                        marginHorizontal: 10
-                                    }}>
-                                        <Ionicons name="call-outline" size={20} />
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={{
-                                        marginHorizontal: 10
-                                    }}>
-                                        <Ionicons name="videocam-outline" size={20} />
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={{
-                                        marginHorizontal: 5
-                                    }}>
-                                        <Ionicons name="ellipsis-vertical" size={20} />
-                                    </TouchableOpacity>
-                                </View>
-                            )
-                        },
-                    })} />
-            </Stack.Navigator>
-        </NavigationContainer>
-    )
+    render() {
+        const tabBarOptions = this.tabBarOptions()
+        return (
+            <BottomTab.Navigator
+                swipeEnabled={false}
+                initialRouteName="Explore"
+                tabBarOptions={tabBarOptions}>
+                <BottomTab.Screen
+                    name="Explore"
+                    component={ExploreScreen}
+                    options={{
+                        title: 'Explore',
+                        tabBarIcon: ({ color }) => {
+                            return <Ionicons name='md-flame' size={25} color={color} />
+                        }
+
+                    }}
+                />
+                <BottomTab.Screen
+                    name="Matches"
+                    component={MatchScreen}
+                    options={{
+                        tabBarIcon: ({ focused, color }) => {
+                            return <Ionicons name='md-heart' size={25} color={color} />
+                        }
+                    }} />
+                <BottomTab.Screen
+                    name="Chat"
+                    component={ChatScreen}
+                    options={(params) => ChatScreen.BottomTabNavigationOptions(params)} />
+            </BottomTab.Navigator>
+        )
+    }
+
+
+    tabBarOptions() {
+        return {
+            activeTintColor: '#fff',
+            inactiveTintColor: "#222",
+            showIcon: true,
+            showLabel: false,
+            labelStyle: {
+                fontSize: 15,
+                margin: 0,
+                padding: 0,
+                textTransform: 'uppercase',
+            },
+            iconStyle: {
+                margin: 0,
+                padding: 0,
+                color: CRIMSON_COLOR
+            },
+            tabStyle: {
+                backgroundColor: CRIMSON_COLOR
+            }
+        }
+    }
+
+    styles = () => {
+        return {
+            headerRightBtn: {
+                flexDirection: 'row',
+                alignItems: 'center',
+                paddingHorizontal: 10,
+                paddingVertical: 5,
+                marginHorizontal: 5,
+                backgroundColor: '#F8F8F8',
+                borderRadius: 10
+            },
+            headerRightBtnText: {
+                fontSize: 18,
+                color: '#222',
+                marginHorizontal: 5
+            },
+        }
+    }
 }

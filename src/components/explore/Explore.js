@@ -3,135 +3,114 @@ import {
     Image,
     Text,
     View,
-    Animated,
-    TouchableOpacity,
     StyleSheet,
     TouchableWithoutFeedback,
 } from 'react-native'
 
-import {
-    CRIMSON_COLOR,
-    DIMGRAY_COLOR,
-    SEAGREEN_COLOR,
-    WHITE_COLOR
-} from 'colors/ConstantColors'
-
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { SCREEN_WIDTH } from 'App'
 
-export default ({ item, animated, session }) => {
-    const scale = IsEmpty(animated) ? 1 : animated.x.interpolate({
-        inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
-        outputRange: [0, 1, 0],
-        extrapolate: 'clamp'
-    })
-    const uri = item.image[0].source
-    console.log(uri)
+export default ({ item }) => {
+    const goto = (id) => {
+        console.log('go:', id)
+    }
+
+    const uri = { uri: "http://192.168.8.101:8081/src" + item.image[0]?.source }
+
+    const split = item.year.split('/')
+    const day = parseInt(split[0])
+    const month = parseInt(split[1])
+    const years = parseInt(split[2])
+    const s = new Date(Date.now()).setHours(0, 0, 0, 0).valueOf() - new Date(years, month, day).valueOf()
+    const year = Math.round(new Date(s).getTime() / (365 * (24 * 60 * 60 * 1000)))
 
     return (
         <View style={styles.card}>
-            {/* <Image source={} style={styles.image} /> */}
-            <View style={styles.cardContent}>
-                <View style={styles.cardInfoBtn}>
-                    <View style={{ flexDirection: 'row', marginHorizontal: 10, alignItems: 'center' }}>
-                        <Ionicons name="location-outline" size={18} color={WHITE_COLOR} />
-                        <Text style={{
-                            color: WHITE_COLOR,
-                            marginHorizontal: 5,
-                            fontSize: 16
-                        }}>{item.ville}</Text>
-                    </View>
-                    <Text style={{ fontSize: 16, color: '#FFF' }}>|</Text>
-                    <View style={{ flexDirection: 'row', marginHorizontal: 10, alignItems: 'center' }}>
-                        <Ionicons name="school" size={18} color={WHITE_COLOR} />
-                        <Text style={{
-                            color: WHITE_COLOR,
-                            marginHorizontal: 5,
-                            fontSize: 16
-                        }}>{item.school}</Text>
-                    </View>
-                </View>
-                <View style={styles.cardInfo}>
-                    <TouchableWithoutFeedback>
-                        <View>
-                            <Text style={styles.cardInfoTitle}>{item.firstname} {item.lastname}, {item.age}</Text>
-                            <Text style={styles.cardInfoSubTitle}>
-                                Je suis un ingénieur capable de s’adapter et apprendre très rapidement
-                            </Text>
-                        </View>
-                    </TouchableWithoutFeedback>
-                    <Animated.View style={{
+            <Image source={uri} style={styles.image} />
+            <TouchableWithoutFeedback onPress={e => goto(item.id)}>
+                <View style={styles.info}>
+                    <Text style={[styles.textWithShadow, styles.textPrimary]}>{item.firstname}, {year}</Text>
+                    <View style={{
                         flexDirection: 'row',
-                        justifyContent: 'space-around',
                         alignItems: 'center',
+                        position: 'relative'
                     }}>
-                        <TouchableOpacity style={styles.iconLikedBtn}>
-                            <Ionicons name="heart" size={30} color='tomato' />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.iconLikedBtn}>
-                            <Ionicons name="star" size={30} color={SEAGREEN_COLOR} />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.iconLikedBtn}>
-                            <Ionicons name="close" size={30} color={CRIMSON_COLOR} />
-                        </TouchableOpacity>
-                    </Animated.View>
+                        <View style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            marginTop: 5
+                        }}>
+                            <Ionicons name="location-sharp" size={20} color="#fff" style={styles.icon} />
+                            <Text style={[styles.textWithShadow, styles.textSecondary]}>{item.ville}</Text>
+                        </View>
+                        <View style={{
+                            backgroundColor: '#fff',
+                            width: 25,
+                            height: 10,
+                            top: 5,
+                            marginHorizontal: 10,
+                            elevation: 10
+                        }} />
+                        <View style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            marginTop: 5
+                        }}>
+                            <Ionicons name="school" size={20} color="#fff" style={styles.icon} />
+                            <Text style={[styles.textWithShadow, styles.textSecondary]}>{item.school}</Text>
+                        </View>
+                    </View>
+                    <View style={{
+                        marginTop: 10,
+                        width: 250
+                    }}>
+                        <Text style={[styles.textWithShadow, styles.textSecondary, { fontSize: 14, marginLeft: 0 }]}>
+                            Les méthodes de l'objet Date se répartissent en différentes catégories
+                        </Text>
+                    </View>
                 </View>
-            </View>
+            </TouchableWithoutFeedback>
         </View>
+
     )
 }
 
 const styles = StyleSheet.create({
     card: {
         flex: 1,
+        position: 'relative'
     },
     image: {
-        flex: 3,
+        flex: 1,
         width: '100%',
         height: '100%',
         borderRadius: 10
     },
-    cardContent: {
-
-    },
-    cardInfo: {
-        top: 10,
-        paddingVertical: 15,
-        paddingHorizontal: 5
-    },
-    cardInfoTitle: {
-        fontSize: 22,
-        fontWeight: '700'
-    },
-    cardInfoSubTitle: {
-        color: DIMGRAY_COLOR,
-        fontSize: 16,
-        marginTop: 5,
-        lineHeight: 22
-    },
-    cardInfoBtn: {
+    info: {
         position: 'absolute',
-        alignSelf: 'center',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        backgroundColor: 'tomato',
-        top: -10,
-        borderRadius: 10,
-        paddingHorizontal: 10,
-        paddingVertical: 0,
+        bottom: 10,
+        left: 15,
     },
-    iconLikedBtn: {
-        backgroundColor: '#FFF',
-        height: 50,
-        width: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 100,
-        shadowColor: '#fff',
-        shadowOffset: { width: 0, height: 5 },
-        shadowOpacity: 0.55,
-        marginHorizontal: 10,
-        marginTop: 20
+    textPrimary: {
+        color: "#fffafa",
+        fontSize: 25
+    },
+    textSecondary: {
+        color: "#fff",
+        fontSize: 18,
+        marginLeft: 10
+    },
+    textWithShadow: {
+        color: '#fff',
+        fontWeight: '700',
+        textShadowColor: '#222',
+        textShadowOffset: { width: -1, height: 1 },
+        textShadowRadius: 5
+    },
+    icon: {
+        color: '#fff',
+        fontWeight: '700',
+        textShadowColor: '#222',
+        textShadowOffset: { width: -1, height: 1 },
+        textShadowRadius: 5
     }
 })

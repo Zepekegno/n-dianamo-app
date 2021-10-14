@@ -1,6 +1,4 @@
 import { createStackNavigator } from '@react-navigation/stack'
-import { SCREEN_WIDTH } from 'App'
-import AuthContext from 'contexts/AuthContext'
 import React from 'react'
 import EmailForm from './register/EmailForm'
 import GenderForm from './register/GenderForm'
@@ -13,7 +11,11 @@ const RegisterStack = createStackNavigator()
 export default (props) => {
     return (
         <RegisterStack.Navigator screenOptions={{
-            headerShown: false
+            title: "Inscription",
+            headerStyle: {
+                backgroundColor: 'tomato',
+            },
+            headerTintColor: '#fffafa'
         }}>
             <RegisterStack.Screen name='Name' component={NameForm} />
             <RegisterStack.Screen name='Year' component={YearForm} />

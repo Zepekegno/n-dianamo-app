@@ -1,34 +1,20 @@
-import React, { useContext, } from "react";
-import { StyleSheet } from "react-native";
-import AuthContext from "contexts/AuthContext";
+import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import RegisterScreen from "./auth/RegisterScreen";
+import LoginScreen from "./auth/LoginScreen";
+import ForgotPasswordScreen from "./auth/ForgotPasswordScreen";
 const AuthStack = createStackNavigator()
 
 const Auth = (props) => {
-
-    const context = useContext(AuthContext)
-
     return (
         <NavigationContainer>
-            <AuthStack.Navigator>
-                <AuthStack.Screen name='Register' component={RegisterScreen} options={{ title: 'Registration' }} />
+            <AuthStack.Navigator screenOptions={{ headerShown: false, }}>
+                <AuthStack.Screen name='Login' component={LoginScreen} />
+                <AuthStack.Screen name='Register' component={RegisterScreen} />
+                <AuthStack.Screen name='ForgotPassword' component={ForgotPasswordScreen} />
             </AuthStack.Navigator>
         </NavigationContainer>
     )
 }
 export default Auth
-
-
-const STYLE = StyleSheet.create({
-    container: {
-        position: 'relative'
-    },
-    signContainer: {
-        position: 'absolute',
-        width: '100%',
-        borderWidth: 1,
-        top: 100
-    }
-})
