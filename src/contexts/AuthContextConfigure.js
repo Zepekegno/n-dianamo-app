@@ -1,4 +1,4 @@
-import { API } from 'App'
+import { API } from 'config/config'
 import { Alert } from 'react-native'
 import isEmpty from '../utils/isEmpty'
 export const authRequest = (errors, loading, token) => {

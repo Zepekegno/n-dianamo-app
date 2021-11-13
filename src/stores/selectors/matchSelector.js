@@ -2,23 +2,21 @@
 
 export default (state) => {
 
-    let ids = []
     let getUserAndMatch = []
 
-    state.match.forEach(el => {
-        ids.push(el.id_matcher)
-    });
 
+    const { logedId } = state.login
+    const matchFilter = state.match.data.filter(val => val.id_matched == logedId)
 
-    state.users.forEach(u => {
+    state.users.data.forEach(u => {
         const d = []
-        state.match.forEach(m => {
+        matchFilter.forEach(m => {
             if (u.id == m.id_matcher) {
-                let l = {
+                let d = {
                     ...u,
                     matchType: m.type
                 }
-                getUserAndMatch.push(l)
+                getUserAndMatch.push(d)
             }
         })
     })

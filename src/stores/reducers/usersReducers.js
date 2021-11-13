@@ -1,13 +1,20 @@
-export const INI_STATE_USERS = 'INI_STATE_USERS'
-export const UPDATE_STATE_USERS = 'UPDATE_STATE_USERS'
+import { INI_STATE_USERS } from "stores/constants"
 
 /**  */
-const INI = []
+const INI = {
+    data: []
+}
 
 export default (state = INI, action) => {
     switch (action.type) {
         case INI_STATE_USERS:
-            return action.payload
+            if (state.data.length != action.payload.length) {
+                return {
+                    ...state,
+                    data: action.payload
+                }
+            }
+            return state
         default:
             return state
     }

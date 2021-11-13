@@ -1,8 +1,7 @@
-export const ADD_USER_NAME = 'ADD_USER_NAME'
-export const ADD_USER_YEAR = 'ADD_USER_YEAR'
-export const ADD_USER_GENDER = 'ADD_USER_GENDER'
-export const ADD_USER_EMAIL = 'ADD_USER_EMAIL'
-export const ADD_USER_PASSWORD = 'ADD_USER_PASSWORD'
+import {
+    ADD_USER_EMAIL, ADD_USER_GENDER,
+    ADD_USER_NAME, ADD_USER_PASSWORD, ADD_USER_YEAR
+} from "stores/constants"
 
 export default (state = {}, action) => {
     switch (action.type) {

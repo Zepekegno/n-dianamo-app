@@ -1,4 +1,4 @@
-export const useGetMessage = (message, idConnect, idSearch, users) => {
+export const useGetMessage = (message = [], idConnect, idSearch = null, users) => {
     //je recupere la list de ces messages
     let isInArray = []
     let getMessage = []
@@ -6,6 +6,7 @@ export const useGetMessage = (message, idConnect, idSearch, users) => {
     let getSenderAndReceiverMessages = []
 
     if (idSearch == null) {
+
         const messages = message.filter(item => {
             if (item.id_receiver == idConnect || item.id_sender == idConnect) return item
         })
